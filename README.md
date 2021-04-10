@@ -1,6 +1,16 @@
-# Getting Started with Create React App
+# Frontend zur Darstellung der aktuellen Auslastung von Läden
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Stellt die aktuelle Anzahl von Personen im Laden dar und informiert Kunden am Eingang ob der Laden betreten werden darf.
+
+## Beispiel Page
+
+_TBD_
+[www.covid.marcel-mueller.eu](www.covid.marcel-mueller.eu)
+
+## Debug
+
+_TBD_
+Über das Debug Menü können die Werte angepasst werden.
 
 ## Available Scripts
 
