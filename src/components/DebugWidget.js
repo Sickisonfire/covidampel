@@ -1,4 +1,6 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
+
+import { PersonCountContext } from '../contexts/personCountContext'
 
 import { ReactComponent as ChevronDownIcon } from '../assets/chevron.svg'
 import { ReactComponent as PlusIcon } from '../assets/mdi_plus.svg'
@@ -8,12 +10,16 @@ import { ReactComponent as MinusIcon } from '../assets/mdi_minus.svg'
 import tw, { css } from 'twin.macro'
 
 const DebugWidget = () => {
-  const [widgetOpen, setWidgetOpen] = useState(false)
-  const [aktuell, setAktuell] = useState(5)
-  const [max, setMax] = useState(20)
+  const {
+    increasePersonCount,
+    decreasePersonCount,
+    setPersonCount,
+    setMaxPersonCount,
+    personCountState,
+  } = useContext(PersonCountContext)
 
-  const increaseCount = () => {}
-  const decreaseCount = () => {}
+  const [widgetOpen, setWidgetOpen] = useState(false)
+
   return (
     <div tw='relative'>
       <button
@@ -42,8 +48,8 @@ const DebugWidget = () => {
                 id='aktuell'
                 step='1'
                 min='0'
-                value={aktuell || ''}
-                onChange={(e) => setAktuell(+e.target.value)}
+                value={personCountState.currentCount}
+                onChange={(e) => setPersonCount(+e.target.value)}
                 tw='bg-black w-8 h-8 bg-gray-900 text-center rounded focus:bg-gray-500'
               />
             </div>
@@ -55,8 +61,8 @@ const DebugWidget = () => {
                 id='max'
                 step='1'
                 min='0'
-                value={max || ''}
-                onChange={(e) => setMax(+e.target.value)}
+                value={personCountState.maxCount}
+                onChange={(e) => setMaxPersonCount(+e.target.value)}
                 tw='bg-black w-8 h-8 bg-gray-900 text-center rounded focus:bg-gray-500'
               />
             </div>
@@ -64,13 +70,13 @@ const DebugWidget = () => {
           <div tw='w-full flex items-center justify-around pt-4 border-t border-gray-800'>
             <button
               tw='bg-gray-900 rounded hover:bg-gray-800 active:bg-gray-500'
-              onClick={() => decreaseCount}
+              onClick={() => decreasePersonCount()}
             >
               <MinusIcon />
             </button>
             <button
               tw='bg-gray-900 rounded hover:bg-gray-800 active:bg-gray-500'
-              onClick={() => increaseCount}
+              onClick={() => increasePersonCount()}
             >
               <PlusIcon />
             </button>
