@@ -60,27 +60,27 @@ const App = () => {
             </button>
           </div>
           <div tw='w-7/12 flex items-center p-32'>
-            <h1 tw='text-8xl font-bold'>
+            <h1 tw='2xl:text-8xl text-7xl font-bold'>
               {storeFull
                 ? 'Bitte betreten Sie die Filiale erst, wenn der Bildschirm grün wird.'
                 : 'Sie dürfen die Filiale betreten!'}
             </h1>
           </div>
-          <div tw='flex items-center w-5/12 justify-center flex-col  bg-black bg-opacity-80	'>
+          <div tw='flex items-center w-5/12 justify-center flex-col bg-black bg-opacity-80'>
             {storeFull ? (
-              <CrossIcon width='450px' height='450px' />
+              <CrossIcon width='55vw' height='55vh' />
             ) : (
-              <TickIcon width='450px' height='450px' />
+              <TickIcon width='55vw' height='55vh' />
             )}
             <div tw='flex items-center'>
-              <p tw='font-bold text-white' style={{ fontSize: 214 }}>
+              <p tw='font-bold text-white leading-none' style={{ fontSize: '13rem' }}>
                 {personCountState.currentCount}
               </p>
               <PersonIcon width='228px' height='228px' />
             </div>
           </div>
         </main>
-        <footer tw='bg-black p-6 '>
+        <footer tw='hidden 2xl:(block bg-black p-6) '>
           <h1 tw='text-8xl font-bold text-white text-center '>
             {storeFull
               ? 'Bitte haben Sie etwas Geduld. Danke!'
