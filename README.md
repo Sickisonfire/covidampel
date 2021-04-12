@@ -9,7 +9,6 @@ _TBD_
 
 ## Debug
 
-_TBD_
 Über das Debug Menü können die Werte angepasst werden.
 
 ## Available Scripts
