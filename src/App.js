@@ -12,7 +12,7 @@ import { PersonCountContext } from './contexts/personCountContext'
 import DebugWidget from './components/DebugWidget'
 
 /** @jsxImportSource @emotion/react */
-import tw, { css } from 'twin.macro'
+import tw from 'twin.macro'
 
 const App = () => {
   const [storeFull, setStoreFull] = useState(false)
@@ -36,60 +36,63 @@ const App = () => {
     } else {
       setStoreFull(false)
     }
-  }, [personCountState, menuHidden])
+  }, [personCountState])
 
   return (
-    <>
-      <div
-        css={[
-          tw`fixed top-0 left-0 bottom-0 right-0 flex flex-col transition-all`,
-          storeFull ? tw`bg-ampel-red` : tw`bg-ampel-green`,
-        ]}
-        onMouseMove={handleMouseMove}
-      >
-        <main tw='flex flex-grow '>
-          <div
-            css={[
-              tw`absolute right-5 top-5 text-white z-10 flex space-x-5 items-center`,
-              menuHidden && tw`hidden`,
-            ]}
-          >
-            <DebugWidget />
-            <button tw='focus:outline-none hover:(bg-black bg-opacity-30) rounded' onClick={toggle}>
-              {fullScreen ? <ExitFullscreenIcon /> : <FullscreenIcon />}
-            </button>
-          </div>
-          <div tw='w-7/12 flex items-center p-32'>
-            <h1 tw='2xl:text-8xl text-7xl font-bold'>
-              {storeFull
-                ? 'Bitte betreten Sie die Filiale erst, wenn der Bildschirm grün wird.'
-                : 'Sie dürfen die Filiale betreten!'}
-            </h1>
-          </div>
-          <div tw='flex items-center w-5/12 justify-center flex-col bg-black bg-opacity-80'>
-            {storeFull ? (
-              <CrossIcon width='55vw' height='55vh' />
-            ) : (
-              <TickIcon width='55vw' height='55vh' />
-            )}
-            <div tw='flex items-center'>
-              <p tw='font-bold text-white leading-none' style={{ fontSize: '13rem' }}>
-                {personCountState.currentCount}
-              </p>
-              <PersonIcon width='228px' height='228px' />
-            </div>
-          </div>
-        </main>
-        <footer tw='hidden 2xl:(block bg-black p-6) '>
-          <h1 tw='text-8xl font-bold text-white text-center '>
+    <AppWrapper
+      css={[storeFull ? tw`bg-ampel-red` : tw`bg-ampel-green`]}
+      onMouseMove={handleMouseMove}
+    >
+      <Main>
+        <MenuContainer css={[menuHidden && tw`hidden`]}>
+          <DebugWidget />
+          <FullScreenBtn onClick={toggle}>
+            {fullScreen ? <ExitFullscreenIcon /> : <FullscreenIcon />}
+          </FullScreenBtn>
+        </MenuContainer>
+        <MainLeftContainer>
+          <Heading>
             {storeFull
-              ? 'Bitte haben Sie etwas Geduld. Danke!'
-              : 'Wir wünschen einen schönen Einkauf!'}
-          </h1>
-        </footer>
-      </div>
-    </>
+              ? 'Bitte betreten Sie die Filiale erst, wenn der Bildschirm grün wird.'
+              : 'Sie dürfen die Filiale betreten!'}
+          </Heading>
+        </MainLeftContainer>
+        <MainRightContainer>
+          {storeFull ? (
+            <CrossIcon width='55vw' height='55vh' />
+          ) : (
+            <TickIcon width='55vw' height='55vh' />
+          )}
+          <div tw='flex items-center'>
+            <PersonCount>{personCountState.currentCount}</PersonCount>
+            <PersonIcon width='228px' height='228px' />
+          </div>
+        </MainRightContainer>
+      </Main>
+      <Footer>
+        <FooterText>
+          {storeFull
+            ? 'Bitte haben Sie etwas Geduld. Danke!'
+            : 'Wir wünschen einen schönen Einkauf!'}
+        </FooterText>
+      </Footer>
+    </AppWrapper>
   )
 }
+
+/* -------------------------------------
+    Styles
+ -------------------------------------*/
+
+const AppWrapper = tw.div`fixed top-0 left-0 bottom-0 right-0 flex flex-col transition-all`
+const Main = tw.main`flex flex-grow`
+const MenuContainer = tw.div`absolute right-5 top-5 text-white z-10 flex space-x-5 items-center`
+const FullScreenBtn = tw.button`focus:outline-none hover:(bg-black bg-opacity-30) rounded`
+const MainLeftContainer = tw.div`w-7/12 flex items-center p-32`
+const MainRightContainer = tw.div`flex items-center w-5/12 justify-center flex-col bg-black bg-opacity-80`
+const Heading = tw.h1`2xl:text-8xl text-7xl font-bold`
+const PersonCount = tw.p`font-bold text-white leading-none text-count`
+const Footer = tw.footer`hidden 2xl:(block bg-black p-6)`
+const FooterText = tw.h1`text-8xl font-bold text-white text-center`
 
 export default App

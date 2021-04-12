@@ -10,6 +10,9 @@ module.exports = {
         'ampel-green': '#68F068',
         'ampel-red': '#F13E3E',
       },
+      fontSize: {
+        count: '13rem',
+      },
     },
     screens: {
       sm: '640px',
