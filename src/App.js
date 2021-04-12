@@ -1,4 +1,4 @@
-import { useContext, useState, useEffect } from 'react'
+import { useContext, useState, useEffect, useRef } from 'react'
 import { useFullScreen } from 'react-browser-hooks'
 
 import { ReactComponent as TickIcon } from './assets/mdi_check-circle-outline.svg'
@@ -8,6 +8,7 @@ import { ReactComponent as FullscreenIcon } from './assets/mdi_fullscreen.svg'
 import { ReactComponent as ExitFullscreenIcon } from './assets/mdi_fullscreen-exit.svg'
 
 import { PersonCountContext } from './contexts/personCountContext'
+import { useIdleTimer } from './utils/useIdleTimer'
 
 import DebugWidget from './components/DebugWidget'
 
@@ -16,19 +17,9 @@ import tw from 'twin.macro'
 
 const App = () => {
   const [storeFull, setStoreFull] = useState(false)
-  const [menuHidden, setMenuHidden] = useState(false)
-
   const { personCountState } = useContext(PersonCountContext)
   const { toggle, fullScreen } = useFullScreen()
-
-  const handleMouseMove = () => {
-    if (menuHidden) {
-      setMenuHidden(false)
-      setTimeout(() => {
-        setMenuHidden(true)
-      }, 7000)
-    }
-  }
+  const isIdle = useIdleTimer(8000)
 
   useEffect(() => {
     if (personCountState.currentCount >= personCountState.maxCount) {
@@ -39,12 +30,9 @@ const App = () => {
   }, [personCountState])
 
   return (
-    <AppWrapper
-      css={[storeFull ? tw`bg-ampel-red` : tw`bg-ampel-green`]}
-      onMouseMove={handleMouseMove}
-    >
+    <AppWrapper css={[storeFull ? tw`bg-ampel-red` : tw`bg-ampel-green`]}>
       <Main>
-        <MenuContainer css={[menuHidden && tw`hidden`]}>
+        <MenuContainer css={[isIdle && tw`hidden`]}>
           <DebugWidget />
           <FullScreenBtn onClick={toggle}>
             {fullScreen ? <ExitFullscreenIcon /> : <FullscreenIcon />}
