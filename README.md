@@ -4,7 +4,7 @@ Stellt die aktuelle Anzahl von Personen im Laden dar und informiert Kunden am Ei
 
 ## Demo
 
-[www.covid.marcel-mueller.eu](www.covid.marcel-mueller.eu)
+[www.covid.marcel-mueller.eu](https://www.covid.marcel-mueller.eu)
 
 ## Debug
 
