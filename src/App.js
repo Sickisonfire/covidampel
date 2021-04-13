@@ -3,7 +3,7 @@ import { useFullScreen } from 'react-browser-hooks'
 
 import { ReactComponent as TickIcon } from './assets/mdi_check-circle-outline.svg'
 import { ReactComponent as CrossIcon } from './assets/mdi_close-circle-outline.svg'
-import { ReactComponent as PersonIcon } from './assets/mdi_account.svg'
+// import { ReactComponent as PersonIcon } from './assets/mdi_account.svg'
 import { ReactComponent as FullscreenIcon } from './assets/mdi_fullscreen.svg'
 import { ReactComponent as ExitFullscreenIcon } from './assets/mdi_fullscreen-exit.svg'
 
@@ -57,8 +57,10 @@ const App = () => {
             <TickIcon width='55vw' height='55vh' />
           )}
           <div tw='flex items-center'>
-            <PersonCount>{personCountState.currentCount}</PersonCount>
-            <PersonIcon width='228px' height='228px' />
+            <PersonCount>
+              {personCountState.currentCount}/{personCountState.maxCount}
+            </PersonCount>
+            {/* <PersonIcon width='228px' height='228px' /> */}
           </div>
         </MainRightContainer>
       </Main>
@@ -84,7 +86,7 @@ const FullScreenBtn = tw.button`focus:outline-none hover:(bg-black bg-opacity-30
 const MainLeftContainer = tw.div`w-7/12 flex items-center p-32`
 const MainRightContainer = tw.div`flex items-center w-5/12 justify-center flex-col bg-black bg-opacity-80`
 const Heading = tw.h1`2xl:text-8xl text-7xl font-bold`
-const PersonCount = tw.p`font-bold text-white leading-none text-count`
+const PersonCount = tw.p`font-bold text-white leading-none 2xl:text-count text-9xl`
 const Footer = tw.footer`hidden 2xl:(block bg-black p-6)`
 const FooterText = tw.h1`text-8xl font-bold text-white text-center`
 
