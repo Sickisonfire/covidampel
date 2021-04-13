@@ -2,9 +2,8 @@
 
 Stellt die aktuelle Anzahl von Personen im Laden dar und informiert Kunden am Eingang ob der Laden betreten werden darf.
 
-## Beispiel Page
+## Demo
 
-_TBD_
 [www.covid.marcel-mueller.eu](www.covid.marcel-mueller.eu)
 
 ## Debug
