@@ -1,4 +1,4 @@
-import { useContext, useState, useEffect, useRef } from 'react'
+import { useContext, useState, useEffect } from 'react'
 import { useFullScreen } from 'react-browser-hooks'
 
 import { ReactComponent as TickIcon } from './assets/mdi_check-circle-outline.svg'
@@ -17,6 +17,7 @@ import tw from 'twin.macro'
 
 const App = () => {
   const [storeFull, setStoreFull] = useState(false)
+  const [hoverMenu, setHoverMenu] = useState(false)
   const { personCountState } = useContext(PersonCountContext)
   const { toggle, fullScreen } = useFullScreen()
   const isIdle = useIdleTimer(8000)
@@ -32,7 +33,11 @@ const App = () => {
   return (
     <AppWrapper css={[storeFull ? tw`bg-ampel-red` : tw`bg-ampel-green`]}>
       <Main>
-        <MenuContainer css={[isIdle && tw`hidden`]}>
+        <MenuContainer
+          onMouseEnter={() => setHoverMenu(true)}
+          onMouseLeave={() => setHoverMenu(false)}
+          css={[isIdle && !hoverMenu && tw`hidden`]}
+        >
           <DebugWidget />
           <FullScreenBtn onClick={toggle}>
             {fullScreen ? <ExitFullscreenIcon /> : <FullscreenIcon />}
