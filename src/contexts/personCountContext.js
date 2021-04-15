@@ -4,13 +4,20 @@ import {
   DECREASE_PERSON_COUNT,
   SET_PERSON_COUNT,
   SET_MAX_PERSON_COUNT,
+  SET_BANNER_GREEN,
+  SET_BANNER_RED,
 } from './types'
 
 /* -------------------------------------
     Initial State
  -------------------------------------*/
 
-const initialState = { currentCount: 0, maxCount: 20 }
+const initialState = {
+  currentCount: 0,
+  maxCount: 20,
+  bannerTextGreen: 'Wir wünschen einen schönen Einkauf!',
+  bannerTextRed: 'Bitte haben Sie etwas Geduld. Danke!',
+}
 
 /* -------------------------------------
     Context
@@ -44,6 +51,16 @@ const PersonCountReducer = (state, action) => {
         ...state,
         currentCount: state.currentCount > 0 ? state.currentCount - 1 : 0,
       }
+    case SET_BANNER_GREEN:
+      return {
+        ...state,
+        bannerTextGreen: action.payload,
+      }
+    case SET_BANNER_RED:
+      return {
+        ...state,
+        bannerTextRed: action.payload,
+      }
     default:
       return state
   }
@@ -68,6 +85,18 @@ export const PersonCountState = (props) => {
       payload: newMaxPersonCount,
     })
   }
+  const setBannerTextGreen = (text) => {
+    dispatch({
+      type: SET_BANNER_GREEN,
+      payload: text,
+    })
+  }
+  const setBannerTextRed = (text) => {
+    dispatch({
+      type: SET_BANNER_RED,
+      payload: text,
+    })
+  }
   const increasePersonCount = () => {
     dispatch({
       type: INCREASE_PERSON_COUNT,
@@ -87,6 +116,8 @@ export const PersonCountState = (props) => {
         setMaxPersonCount,
         increasePersonCount,
         decreasePersonCount,
+        setBannerTextGreen,
+        setBannerTextRed,
       }}
     >
       {props.children}
